@@ -1,0 +1,369 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Опрос для родителей · СТИК — Альберт Мкртычев</title>
+<meta name="description" content="7 коротких вопросов о том, что происходит дома. Ответы увидит только Альберт.">
+<meta name="theme-color" content="#0E0F11">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Onest:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Onest:wght@400;500;600;700&display=swap"></noscript>
+<style>
+:root{--ink:#0E0F11;--ink2:#16181C;--line:#24262B;--volt:#CCF334;--mut:#B0B3BB;--red:#ef5350;--d:'Unbounded',system-ui,Arial,sans-serif;--b:'Onest',-apple-system,'Segoe UI',Roboto,Arial,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--b);background:var(--ink);color:#F4F4EF;line-height:1.65;font-size:17px;min-height:100vh;touch-action:manipulation;overscroll-behavior-y:contain;-webkit-user-select:none;user-select:none}
+input,textarea{-webkit-user-select:text;user-select:text}
+.w{max-width:560px;margin:0 auto;padding:0 18px}
+.nw{white-space:nowrap}
+
+.top{display:flex;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.top .bx{width:38px;height:38px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--d);font-size:12px;font-weight:700;flex-shrink:0}
+.top .t1{font-family:var(--d);font-size:12px;font-weight:700;letter-spacing:.08em;display:block;line-height:1.3}
+.top .t2{font-size:11px;color:var(--mut);display:block}
+
+main{padding:26px 0 40px}
+
+/* приветствие */
+.hero .bdg{display:inline-flex;align-items:center;gap:10px;font-family:var(--d);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--volt)}
+.hero .bdg::before{content:"";width:24px;height:1px;background:var(--volt)}
+.hero h1{font-family:var(--d);font-weight:800;text-transform:uppercase;line-height:1.12;font-size:clamp(26px,7.4vw,40px);margin-top:14px}
+.hero h1 .v{color:var(--volt)}
+.hero p{color:var(--mut);font-size:16.5px;margin-top:14px;max-width:480px;line-height:1.62}
+.hero p b{color:#F4F4EF;font-weight:600}
+.facts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:22px}
+.facts div{background:var(--ink2);border:1px solid var(--line);padding:13px 8px;text-align:center}
+.facts .n{font-family:var(--d);font-weight:800;font-size:22px;color:var(--volt)}
+.facts .c{font-family:var(--d);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--mut);margin-top:3px}
+.btn-go{margin-top:24px;width:100%;border:0;cursor:pointer;background:var(--volt);color:var(--ink);font-family:var(--d);font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:.08em;padding:20px;border-radius:6px}
+.btn-go:active{transform:scale(.98)}
+.priv{font-size:13px;color:var(--mut);text-align:center;margin-top:12px;line-height:1.55}
+
+/* опрос */
+.qwrap{display:none}
+.qwrap.on{display:block}
+.pbar{height:8px;background:var(--ink2);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--volt);width:0%}
+.plabel{display:flex;justify-content:space-between;font-family:var(--d);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:18px}
+.plabel b{color:var(--volt)}
+.qt{font-family:var(--d);font-weight:700;font-size:clamp(20px,5.6vw,26px);line-height:1.35}
+.qhint{font-size:14.5px;color:var(--mut);margin-top:8px}
+.opts{display:grid;gap:9px;margin-top:20px}
+.opt{display:flex;align-items:center;gap:13px;background:var(--ink2);border:1.5px solid var(--line);padding:16px;border-radius:6px;cursor:pointer;font-size:16.5px;min-height:58px;transition:border-color .15s,background .15s}
+.opt .ck{width:24px;height:24px;border:2px solid var(--mut);border-radius:50%;flex-shrink:0;position:relative;transition:.15s}
+.opt.multi .ck{border-radius:6px}
+.opt.sel{border-color:var(--volt);background:rgba(204,243,52,.06)}
+.opt.sel .ck{border-color:var(--volt);background:var(--volt)}
+.opt.sel .ck::after{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--ink)}
+.opt.multi.sel .ck::after{border-radius:3px}
+.qmax{font-size:13px;color:var(--red);margin-top:10px;min-height:18px}
+.nav{display:grid;grid-template-columns:auto 1fr;gap:10px;margin-top:26px}
+.btn-back{background:transparent;border:1.5px solid var(--line);color:var(--mut);font-family:var(--d);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:16px 20px;border-radius:6px;cursor:pointer}
+.btn-next{background:var(--volt);border:0;color:var(--ink);font-family:var(--d);font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:17px;border-radius:6px;cursor:pointer}
+.btn-next:active,.btn-back:active{transform:scale(.98)}
+
+/* контакт */
+.contact h2{font-family:var(--d);font-weight:700;font-size:clamp(19px,5.4vw,24px);line-height:1.35}
+.contact p{color:var(--mut);font-size:15.5px;margin-top:10px;line-height:1.6}
+.cf{margin-top:18px}
+.cf label{display:block;font-family:var(--d);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--volt);margin-bottom:8px}
+.cf input{width:100%;background:var(--ink2);border:1.5px solid var(--line);color:#F4F4EF;font-family:var(--b);font-size:17px;padding:15px;border-radius:6px;outline:0}
+.cf input:focus{border-color:var(--volt)}
+.btn-send{margin-top:24px;width:100%;background:var(--volt);border:0;color:var(--ink);font-family:var(--d);font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:20px;border-radius:6px;cursor:pointer}
+.btn-send:active{transform:scale(.98)}
+.btn-send[disabled]{opacity:.55}
+
+/* финал */
+.done{display:none;text-align:center}
+.done.on{display:block}
+.done .cup{font-size:72px;line-height:1}
+.done h2{font-family:var(--d);font-weight:800;text-transform:uppercase;font-size:clamp(24px,7vw,34px);color:var(--volt);margin-top:10px}
+.done p{color:var(--mut);font-size:16px;margin-top:12px;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.62}
+.done p b{color:#F4F4EF;font-weight:600}
+.btn-gift{display:inline-block;margin-top:22px;background:var(--volt);color:var(--ink);text-decoration:none;font-family:var(--d);font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:18px 30px;border-radius:6px;width:100%}
+.fallback{display:none;margin-top:20px;text-align:left}
+.fallback textarea{width:100%;background:var(--ink2);border:1px solid var(--line);color:var(--mut);font-size:13px;padding:12px;border-radius:6px;min-height:120px}
+.fallback .fcopy{margin-top:10px;width:100%;background:transparent;border:1.5px solid var(--volt);color:var(--volt);font-family:var(--d);font-size:13px;font-weight:700;text-transform:uppercase;padding:14px;border-radius:6px;cursor:pointer}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(16px);opacity:0;transition:.3s;background:var(--volt);color:var(--ink);font-family:var(--d);font-size:13px;font-weight:700;padding:12px 18px;border-radius:999px;z-index:80;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#bootErr{display:none;background:var(--red);color:#fff;padding:14px 18px;font-size:15px;line-height:1.5}
+footer{padding:0 18px calc(16px + env(safe-area-inset-bottom));text-align:center;font-size:12px;color:#6d7076}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <span class="bx">АМ</span>
+  <span><span class="t1">АЛЬБЕРТ МКРТЫЧЕВ</span><span class="t2">Школа кикбоксинга СТИК · опрос для родителей</span></span>
+</div>
+<div id="bootErr">Не удалось открыть форму в этом браузере. Попробуйте Chrome или другой браузер.</div>
+
+<main class="w">
+
+  <!-- ПРИВЕТСТВИЕ -->
+  <div class="hero" id="scHello">
+    <span class="bdg">Опрос · 2 минуты</span>
+    <h1>Пара вопросов<br><span class="v">о том, что дома</span></h1>
+    <p>Здравствуйте! Это <b>Альберт</b>, тренер вашего ребёнка. Я готовлю методику для родителей — но прежде чем предлагать, хочу спросить вас. Что дома даётся тяжелее всего, что пробовали, что нужно.</p>
+    <div class="facts">
+      <div><div class="n">7</div><div class="c">вопросов</div></div>
+      <div><div class="n">2 мин</div><div class="c">по времени</div></div>
+      <div><div class="n">🎁</div><div class="c">гайд в подарок</div></div>
+    </div>
+    <button class="btn-go" type="button" id="btnGo">Начать →</button>
+    <p class="priv">Ответы увидю только я. Имя и телефон — по желанию, на последнем шаге.</p>
+  </div>
+
+  <!-- ОПРОС -->
+  <div class="qwrap" id="scQuiz">
+    <div class="plabel"><span>Вопрос <b id="qNum">1</b> из 6</span><span id="qTag">СТИК × Альберт</span></div>
+    <div class="pbar"><i id="pFill"></i></div>
+    <div style="height:22px"></div>
+    <div class="qt" id="qTitle"></div>
+    <div class="qhint" id="qHint"></div>
+    <div class="opts" id="qOpts"></div>
+    <div class="qmax" id="qMax"></div>
+    <div class="nav">
+      <button class="btn-back" type="button" id="btnBack">← Назад</button>
+      <button class="btn-next" type="button" id="btnNext">Далее →</button>
+    </div>
+  </div>
+
+  <!-- КОНТАКТ -->
+  <div class="qwrap contact" id="scContact">
+    <div class="plabel"><span>Последний шаг</span></div>
+    <h2>Куда написать вам лично?</h2>
+    <p>Методика для родителей учеников СТИК выйдет <b>по специальной цене раньше, чем для всех</b>. Оставьте контакт — напишу вам первым. Не хотите — просто пропустите, подаренный гайд никуда не денется.</p>
+    <div class="cf">
+      <label for="fName">Как вас зовут</label>
+      <input type="text" id="fName" maxlength="40" placeholder="Имя" autocomplete="name">
+    </div>
+    <div class="cf">
+      <label for="fPhone">Телефон или Telegram</label>
+      <input type="text" id="fPhone" maxlength="60" placeholder="+7… или @username" autocomplete="tel">
+    </div>
+    <button class="btn-send" type="button" id="btnSend">Отправить ответы</button>
+    <div class="fallback" id="fbBox">
+      <p style="font-size:14px">Автоотправка не сработала — скопируйте текст и пришлите мне в личку:</p>
+      <textarea id="fbText" readonly></textarea>
+      <button class="fcopy" type="button" id="fbCopy">📋 Скопировать</button>
+    </div>
+  </div>
+
+  <!-- ФИНАЛ -->
+  <div class="done" id="scDone">
+    <div class="cup">💪</div>
+    <h2>Спасибо!</h2>
+    <p>Я читаю каждый ответ сам. А пока методика готовится — заберите <b>гайд «Выдох»</b>: как за минуту гасить скандал, свой в том числе. Проверено на мне и на моих дочерях.</p>
+    <a class="btn-gift" href="#" id="giftLink">Забрать гайд «Выдох» →</a>
+    <p style="font-size:13px;margin-top:16px">Ответы увидю только я. Вашим детям — никакой рекламы, обещаю 🙂</p>
+  </div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<footer>Альберт Мкртычев · СТИК · методика «Ваш ребёнок. От первого подтягивания до первого миллиарда»</footer>
+
+<script>
+/* ============================================================
+   НАСТРОЙКА — вставьте свои значения в две строки ниже
+   Как получить: см. инструкцию к файлу (BotFather + getUpdates)
+   ============================================================ */
+var TG_TOKEN='ВСТАВЬТЕ_ТОКЕН_БОТА';
+var TG_CHAT='ВСТАВЬТЕ_CHAT_ID';
+var GIFT_LINK='#'; /* ссылка на гайд «Выдох» */
+
+/* ---------- вопросы ---------- */
+var QS=[
+ {t:'Сколько лет вашему ребёнку, который занимается в СТИК?',
+  opts:['5–6 лет','7–9 лет','10–12 лет','13–15 лет','16 лет и старше','Занимаются двое и больше']},
+ {t:'Что дома даётся тяжелее всего?',
+  hint:'Можно выбрать до двух вариантов',
+  multi:true,max:2,
+  opts:['Уроки: заставить сесть и доделать','Телефон и игры','Срывается, истерики, орёт','Замкнулся, не разговаривает','Ничего не доводит до конца, бросает','Дерзит, «отстань», закрывает дверь','Дома всё спокойно']},
+ {t:'Как чаще всего заканчивается ситуация, когда ребёнок на взводе?',
+  opts:['Срываюсь сам(а), потом жалею','Держусь, но внутри закипаю','Ухожу из комнаты','Заканчивается скандалом','Молчу и терплю']},
+ {t:'Что уже пробовали, чтобы наладить порядок дома?',
+  multi:true,
+  opts:['Книги по воспитанию','Видео в интернете','Консультация психолога','Ничего — справляюсь сам(а)','Руки не доходили']},
+ {t:'Я готовлю методику для родителей. Что вам было бы нужнее?',
+  opts:['Быстрые готовые ответы на острые ситуации — ссора, истерика, «отстань»','Полная система: что говорить в каждом возрасте от 7 до 17 + правила дома','Пока не думал(а) об этом']},
+ {t:'Что мешает заняться этим прямо сейчас?',
+  opts:['Нет времени','Дорого','Сомневаюсь, что мне это поможет','Второй родитель против','Ничего не мешает']}
+];
+
+/* ---------- утилиты ---------- */
+function $(i){return document.getElementById(i)}
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+var toastT=null;
+function toast(m){var t=$('toast');t.textContent=m;t.className='toast show';clearTimeout(toastT);toastT=setTimeout(function(){t.className='toast'},2200)}
+
+/* ---------- состояние ---------- */
+var S={i:0,ans:[],name:'',phone:'',sent:false};
+try{var sv=JSON.parse(lsGet('stik-survey-v1')||'null');if(sv&&typeof sv.i==='number'&&sv.ans){S=sv;if(S.sent)S.i=-2}}catch(e){}
+function saveS(){lsSet('stik-survey-v1',JSON.stringify(S))}
+
+var cur=-1; /* текущий индекс вопроса */
+
+function show(id){
+  var ids=['scHello','scQuiz','scContact','scDone'];
+  for(var k=0;k<ids.length;k++){
+    var el=$(ids[k]);
+    if(el) el.style.display=(ids[k]===id)?(ids[k]==='scDone'?'block':'block'):'none';
+  }
+  $('scHello').style.display=(id==='scHello')?'block':'none';
+  $('scQuiz').style.display=(id==='scQuiz')?'block':'none';
+  $('scContact').style.display=(id==='scContact')?'block':'none';
+  $('scDone').style.display=(id==='scDone')?'block':'none';
+}
+
+/* ---------- отрисовка вопроса ---------- */
+function renderQ(n){
+  cur=n;
+  var q=QS[n];
+  $('qNum').textContent=(n+1);
+  $('pFill').style.width=Math.round((n)/QS.length*100)+'%';
+  $('qTitle').textContent=q.t;
+  $('qHint').textContent=q.hint||'';
+  $('qMax').textContent='';
+  var box=$('qOpts');box.innerHTML='';
+  var sel=(S.ans[n]||[]);
+  for(var i=0;i<q.opts.length;i++){
+    (function(idx){
+      var o=document.createElement('div');
+      o.className='opt'+(q.multi?' multi':'')+(sel.indexOf(idx)>=0?' sel':'');
+      var ck=document.createElement('span');ck.className='ck';
+      var tx=document.createElement('span');tx.textContent=q.opts[idx];
+      o.appendChild(ck);o.appendChild(tx);
+      o.addEventListener('click',function(){
+        var arr=S.ans[n]||(S.ans[n]=[]);
+        var at=arr.indexOf(idx);
+        if(q.multi){
+          if(at>=0){arr.splice(at,1);o.className='opt multi'}
+          else{
+            var mx=q.max||99;
+            if(arr.length>=mx){$('qMax').textContent='Не больше '+mx+' вариантов — снимите галочку с другого';return}
+            arr.push(idx);o.className='opt multi sel';$('qMax').textContent='';
+          }
+        }else{
+          S.ans[n]=[idx];
+          var cs=box.children;
+          for(var j=0;j<cs.length;j++)cs[j].className='opt'+(q.multi?' multi':'');
+          o.className='opt sel';
+        }
+        saveS();
+      });
+      box.appendChild(o);
+    })(i);
+  }
+  $('btnBack').style.visibility=(n===0)?'hidden':'visible';
+  $('btnNext').textContent=(n===QS.length-1)?'Дальше →':'Далее →';
+  show('scQuiz');
+  try{window.scrollTo(0,0)}catch(e){}
+}
+
+/* ---------- навигация ---------- */
+function goNext(){
+  if(!S.ans[cur]||!S.ans[cur].length){toast('Выберите вариант, чтобы продолжить');return}
+  if(cur+1<QS.length){S.i=cur+1;saveS();renderQ(S.i)}
+  else{S.i=-1;saveS();show('scContact')}
+}
+function goBack(){
+  if(cur>0){S.i=cur-1;saveS();renderQ(S.i)}
+}
+
+/* ---------- сборка текста ---------- */
+function buildText(){
+  var L=[];
+  L.push('📊 Опрос СТИК · ответ от родителя');
+  L.push('');
+  for(var i=0;i<QS.length;i++){
+    var q=QS[i],arr=S.ans[i]||[],parts=[];
+    for(var j=0;j<arr.length;j++)parts.push(q.opts[arr[j]]);
+    L.push((i+1)+'. '+q.t.split('.')[0].split('?')[0]);
+    L.push('   → '+(parts.length?parts.join('; '):'—'));
+  }
+  L.push('');
+  L.push('👤 Контакт: '+(S.name||'не указан')+(S.phone?(' · '+(S.phone||'')):''));
+  var d=new Date();
+  L.push('🗓 '+d.getDate()+'.'+(d.getMonth()+1)+'.'+d.getFullYear());
+  return L.join('\n');
+}
+
+/* ---------- отправка ---------- */
+function sendViaTG(text,ok,fail){
+  try{
+    var xhr=new XMLHttpRequest();
+    xhr.open('POST','https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage',true);
+    xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+    xhr.onreadystatechange=function(){
+      if(xhr.readyState!==4)return;
+      if(xhr.status===200){ok()}else{fail()}
+    };
+    xhr.onerror=fail;
+    xhr.send('chat_id='+encodeURIComponent(TG_CHAT)+'&text='+encodeURIComponent(text));
+  }catch(e){fail()}
+}
+function finish(){
+  S.sent=true;S.i=-2;saveS();
+  show('scDone');
+  try{window.scrollTo(0,0)}catch(e){}
+}
+function doSend(){
+  if(S.sent){show('scDone');return}
+  if(!TG_TOKEN||TG_TOKEN.indexOf(':')<0||TG_CHAT==='ВСТАВЬТЕ_CHAT_ID'){
+    /* не настроено — показываем запасной вариант */
+    $('fbText').value=buildText();
+    $('fbBox').style.display='block';
+    toast('Бот не настроен — скопируйте текст');
+    return;
+  }
+  var txt=buildText();
+  var btn=$('btnSend');btn.disabled=true;btn.textContent='Отправляю…';
+  sendViaTG(txt,
+    function(){finish()},
+    function(){
+      btn.disabled=false;btn.textContent='Отправить ответы';
+      $('fbText').value=txt;
+      $('fbBox').style.display='block';
+      toast('Не отправилось — скопируйте и пришлите в личку');
+    }
+  );
+}
+
+/* ---------- копирование ---------- */
+function copyText(t){
+  try{
+    var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');document.body.removeChild(ta);
+    toast('Скопировано — вставьте в личку Альберту');
+  }catch(e){toast('Выделите текст и скопируйте вручную')}
+}
+
+/* ---------- инициализация ---------- */
+function init(){
+  $('giftLink').href=GIFT_LINK;
+  $('btnGo').addEventListener('click',function(){S.i=0;saveS();renderQ(0)});
+  $('btnNext').addEventListener('click',goNext);
+  $('btnBack').addEventListener('click',goBack);
+  $('btnSend').addEventListener('click',doSend);
+  $('fbCopy').addEventListener('click',function(){copyText($('fbText').value)});
+  $('fName').addEventListener('input',function(){S.name=this.value;saveS()});
+  $('fPhone').addEventListener('input',function(){S.phone=this.value;saveS()});
+
+  /* восстановление: продолжаем с того же вопроса */
+  if(S.i>=0&&S.i<QS.length){renderQ(S.i);return}
+  if(S.i===-1){show('scContact');return}
+  if(S.i===-2){show('scDone');return}
+  show('scHello');
+}
+try{init()}catch(e){
+  try{$('bootErr').style.display='block'}catch(e2){}
+}
+</script>
+</body>
+</html>
